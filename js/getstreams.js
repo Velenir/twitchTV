@@ -16,9 +16,9 @@ function constructStreamItem({display_name, game, logo, url}) {
 	}
 
 	let promise;
+	const $thumb = $("<div class='thumbnail col s12 m2 l1'></div").prependTo($item);
 	if(logo) {
 		const img = new Image();
-		// img.className = "thumbnail col s12 m2 l1";
 		img.alt = display_name;
 		promise = new Promise(function (resolve) {
 			// resolve only, don't reject anything
@@ -26,13 +26,12 @@ function constructStreamItem({display_name, game, logo, url}) {
 		});
 		img.src = logo;
 
-		$("<div class='thumbnail col s12 m2 l2'></div").append(img).prependTo($item);
-		// $item.prepend(img);
+		$thumb.append(img);
 	} else {
-		$item.children(".channel-name").addClass("offset-m2 offset-l2");
+		$thumb.addClass("hide-on-small-only").append("<div class='blank'></div>");
 	}
 
-	$item.append(`<p class="playing col s12 m8 l8">${game}</p>`);
+	$item.append(`<p class="playing col s12 m8 l9">${game}</p>`);
 
 	// ultimately resolves with a fully loaded $item
 	return Promise.resolve(promise).then(() => $item);

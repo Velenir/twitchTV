@@ -89,12 +89,26 @@ main {
 
 	.thumbnail {
 		// min-width: $thumb-size;
+		height: $thumb-size;
 
-		> img {
+		> img, > .blank {
 			width: $thumb-size;
-			max-height: $thumb-size * 1.4;
+			height: $thumb-size;
 			border-radius: 50%;
 			border: 2px solid white;
+		}
+
+		> .blank {
+			display: inline-block;
+			background-color: wheat;
+			position: relative;
+
+			&::after {
+				content: "?";
+				font-size: 4em;
+				line-height: $thumb-size;
+				color: #84919c;
+			}
 		}
 	}
 
