@@ -2,15 +2,22 @@ const defaultChannels = ["freecodecamp", "storbeck", "terakilobyte", "habathcx",
 
 const $streams = $(".streams");
 
-function getStreamItem(channelName, game, logo) {
-	const $item = $(`<div class='stream-item'>
-										<h2 class='channel_name'>${channelName}</h2>
-									</div>`);
+function getStreamItem(channelName, game, logo, url) {
+	const $item = $(`<a class='collection-item stream-item row blue-grey lighten-3 white-text center-align'>
+										<p class='channel-name col s12 m2 l2'>${channelName}</p>
+									</a>`);
+
+	if(url) {
+		$item.prop({
+			href: url,
+			target: '_blank'
+		});
+	}
 
 	let promise;
 	if(logo) {
 		const img = new Image();
-		img.className = "thumbnail";
+		// img.className = "thumbnail col s12 m2 l1";
 		img.alt = channelName;
 		promise = new Promise(function (resolve) {
 			// resolve only, don't reject anything
@@ -18,10 +25,13 @@ function getStreamItem(channelName, game, logo) {
 		});
 		img.src = logo;
 
-		$item.prepend(img);
+		$("<div class='thumbnail col s12 m2 l2'></div").append(img).prependTo($item);
+		// $item.prepend(img);
+	} else {
+		$item.children(".channel-name").addClass("offset-m2 offset-l2");
 	}
 
-	$item.append(`<p class="playing">${game}</p>`);
+	$item.append(`<p class="playing col s12 m8 l8">${game}</p>`);
 
 	// ultimately resolves with a fully loaded $item
 	return Promise.resolve(promise).then(() => $item);
@@ -29,20 +39,21 @@ function getStreamItem(channelName, game, logo) {
 
 function processStreamData({stream}, channelName) {
 	console.log("stream:", stream);
-	let game, name, logo;
+	let game, name, logo, url;
 
 	// Online
 	if(stream) {
-		({game, channel: {name, logo}} = stream);
+		({game, channel: {name, logo, url}} = stream);
 		console.log("game:", game);
 		console.log("channel name:", name);
 		console.log("channel logo:", logo);
 	} else {
 		name = channelName;
 		game = "Offline";
+		url = "https://www.twitch.tv/" + name;
 	}
 
-	getStreamItem(channelName, game, logo).then($item => {
+	getStreamItem(channelName, game, logo, url).then($item => {
 		if(!stream) $item.addClass("offline");
 		$streams.prepend($item);
 	});
@@ -64,7 +75,7 @@ function getChannels(channels) {
 		.fail(function(jqXHR) {
 			if(jqXHR.status === 422) {
 				console.log("Channel Unavailable");
-				getStreamItem(channel, "Channel Unavailable").then($item => $streams.prepend($item.addClass("deleted")));
+				getStreamItem(channel, "Channel Unavailable").then($item => $streams.prepend($item.addClass("unavailable")));
 			} else {
 				console.log("ERROR. jqXHR:",jqXHR);
 			}

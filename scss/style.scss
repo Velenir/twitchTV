@@ -12,6 +12,9 @@ button {
 }
 
 // $body-color: #cedfef;
+$thumb-size: 80px;
+$item-margin: 20px;
+$streams-padding: 20px;
 
 div, p, span, main {
 	outline: 1px dotted black;
@@ -55,19 +58,40 @@ main {
 
 .streams {
 	width: 100%;
-	padding: 20px;
+	padding: $streams-padding;
 }
 
 .stream-item {
-	display: flex;
+	display: flex !important;
 	align-items: center;
+	flex-wrap: wrap;
+	// padding: 40px 20px;
 
 	> * {
-		margin: 20px;
+		// margin: $item-margin;
+		// padding: 40px 0;
+
 	}
 
 	> :last-child {
-		margin-left: auto;
+		// margin-left: auto;
+	}
+
+	.thumbnail {
+		// min-width: $thumb-size;
+
+		> img {
+			width: $thumb-size;
+			max-height: $thumb-size * 1.4;
+			border-radius: 50%;
+			border: 2px solid white;
+		}
+	}
+
+	.channel-name {
+		// &:first-child {
+		// 	margin-left: $thumb-size + $item-margin * 3;
+		// }
 	}
 
 	.playing {
