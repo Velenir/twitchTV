@@ -66,6 +66,16 @@ main {
 	align-items: center;
 	flex-wrap: wrap;
 	// padding: 40px 20px;
+	background-color: #b0bec5 !important;
+	color: white !important;
+
+	&.offline {
+		background-color: #7a848a !important;
+	}
+
+	&.unavailable {
+		background-color: #414c52 !important;
+	}
 
 	> * {
 		// margin: $item-margin;

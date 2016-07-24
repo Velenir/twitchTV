@@ -3,7 +3,7 @@ const defaultChannels = ["freecodecamp", "storbeck", "terakilobyte", "habathcx",
 const $streams = $(".streams");
 
 function getStreamItem(channelName, game, logo, url) {
-	const $item = $(`<a class='collection-item stream-item row blue-grey lighten-3 white-text center-align'>
+	const $item = $(`<a class='collection-item stream-item row center-align'>
 										<p class='channel-name col s12 m2 l2'>${channelName}</p>
 									</a>`);
 
@@ -75,7 +75,7 @@ function getChannels(channels) {
 		.fail(function(jqXHR) {
 			if(jqXHR.status === 422) {
 				console.log("Channel Unavailable");
-				getStreamItem(channel, "Channel Unavailable").then($item => $streams.prepend($item.addClass("unavailable")));
+				getStreamItem(channel, "Unavailable").then($item => $streams.prepend($item.addClass("unavailable")));
 			} else {
 				console.log("ERROR. jqXHR:",jqXHR);
 			}
