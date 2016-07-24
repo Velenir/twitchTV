@@ -58,8 +58,10 @@ function getChannel(channelName) {
 }
 
 function getStreams(channels) {
-	for(let channel of channels) {
+	for(let i = 0, len = channels.length; i < len; ++i) {
+		const channel = channels[i];
 		// console.log("*=========*");
+		// console.log("st CHANNEL", channel);
 		getStream(channel).then(data => {
 			// console.log("1. GOT STREAM:", data.stream);
 			if(data.stream) {
@@ -75,14 +77,14 @@ function getStreams(channels) {
 				});
 			}
 		}).catch((jqXHR, status, err) => {
-			// console.log("2X Failure", jqXHR, status, err);
+			// console.log("2X Failure", jqXHR, "status:", status, "error:", err);
 			if(jqXHR.status === 422) {
 				// console.log("Channel Unavailable");
 				// constructStreamItem(channel, "Unavailable").then($item => $streams.prepend($item.addClass("unavailable")));
 				return {game: "Unavailable", display_name: channel};
 			} else {
 				// console.log("Error. jqXHR:",jqXHR);
-				throw new Error(status);
+				throw new Error(err);
 			}
 		}).then(streamStats => {
 			// console.log("2 GOT STREAM STATS:", streamStats);
@@ -91,8 +93,11 @@ function getStreams(channels) {
 					$item.addClass(streamStats.game.toLowerCase()).appendTo($streams);
 				} else $streams.prepend($item);
 				// console.log("2.5 FINAL ITEM:", $item[0]);
+				// console.log("CHANNEL", channel);
 			});
 		}).catch(err => console.log("Error:", err));
+
+		// console.log("en CHANNEL", channel);
 	}
 }
 

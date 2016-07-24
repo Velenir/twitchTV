@@ -90,6 +90,7 @@ main {
 	.thumbnail {
 		// min-width: $thumb-size;
 		height: $thumb-size;
+		padding: 0;
 
 		> img, > .blank {
 			width: $thumb-size;
