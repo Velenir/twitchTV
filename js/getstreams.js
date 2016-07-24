@@ -3,7 +3,7 @@ const defaultChannels = ["freecodecamp", "storbeck", "terakilobyte", "habathcx",
 const $streams = $(".streams");
 
 function getStreamItem(channelName, game, logo) {
-	const $item = $(`<div class='stream'>
+	const $item = $(`<div class='stream-item'>
 										<h2 class='channel_name'>${channelName}</h2>
 									</div>`);
 

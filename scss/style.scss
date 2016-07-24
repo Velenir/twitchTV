@@ -13,6 +13,9 @@ button {
 
 // $body-color: #cedfef;
 
+div, p, span, main {
+	outline: 1px dotted black;
+}
 
 html {
 	font-size: 16px;
@@ -28,7 +31,46 @@ body {
 
 main {
 	min-height: inherit;
+	min-width: 200px;
+	width: 90%;
+	margin: 20px auto;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	// justify-content: center;
+	align-items: center;
+}
+
+.upper-panel {
+	max-width: 600px;
+	width: 70%;
+}
+
+.input-field .postfix {
+	position: absolute;
+	width: 3rem;
+	left: 100%;
+	font-size: 2rem;
+	transition: color .2s;
+}
+
+.streams {
+	width: 100%;
+	padding: 20px;
+}
+
+.stream-item {
+	display: flex;
+	align-items: center;
+
+	> * {
+		margin: 20px;
+	}
+
+	> :last-child {
+		margin-left: auto;
+	}
+
+	.playing {
+		font-size: 2em;
+	}
 }
