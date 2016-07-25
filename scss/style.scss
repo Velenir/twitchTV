@@ -54,6 +54,11 @@ main {
 	left: 100%;
 	font-size: 2rem;
 	transition: color .2s;
+	width: max-content;
+
+	> i {
+		font-size: inherit;
+	}
 }
 
 .streams {

@@ -4,9 +4,12 @@ block content
 	main
 		.upper-panel
 			.input-field.col.s6
-				i.material-icons.postfix search
+				.postfix
+					i.material-icons search
+					i.material-icons add
 				input#search-field(type="text")
 				label(for="search-field") Search channels
+				
 			
 		.controls
 			each value in ["All", "Online", "Offline", "Available"]
