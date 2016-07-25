@@ -91,7 +91,7 @@ function getStreams(channels) {
 			return constructStreamItem(streamStats).then($item => {
 				if(streamStats.game === "Offline" || streamStats.game === "Unavailable") {
 					$item.addClass(streamStats.game.toLowerCase()).appendTo($streams);
-				} else $streams.prepend($item);
+				} else $streams.prepend($item.addClass("online"));
 				// console.log("2.5 FINAL ITEM:", $item[0]);
 				// console.log("CHANNEL", channel);
 			});

@@ -16,9 +16,9 @@ $thumb-size: 80px;
 $item-margin: 20px;
 $streams-padding: 20px;
 
-div, p, span, main {
-	outline: 1px dotted black;
-}
+// div, p, span, main {
+// 	outline: 1px dotted black;
+// }
 
 html {
 	font-size: 16px;
@@ -59,10 +59,28 @@ main {
 .streams {
 	width: 100%;
 	padding: $streams-padding;
+	margin-top: 0;
+	background-color: #d6d6fb;
+	border-top: none;
+
+	&.show-all > .stream-item {
+		display: flex !important;
+	}
+	&.show-online > .online {
+		display: flex !important;
+	}
+	&.show-offline > .offline {
+		display: flex !important;
+	}
+	&.show-available {
+		> .online, > .offline {
+			display: flex !important;
+		}
+	}
 }
 
 .stream-item {
-	display: flex !important;
+	display: none !important;
 	align-items: center;
 	flex-wrap: wrap;
 	// padding: 40px 20px;
@@ -121,5 +139,44 @@ main {
 
 	.playing {
 		font-size: 2em;
+	}
+}
+
+.controls {
+	width: 100%;
+	// margin-bottom: -1px;
+	border-bottom: 2px solid white;
+
+	> button {
+		width: 25%;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+		margin-bottom: -2px;
+		border: 2px solid white;
+		border-width: 0 0.5px 2px;
+
+		&:first-child {
+			border-left: none;
+		}
+
+		&:last-child {
+			border-right: none;
+		}
+
+		&.on {
+			box-shadow: none;
+			background-color: #d6d6fb;
+			border-bottom-color: transparent;
+		}
+
+		// &.off {
+		// 	background-color: #d6d6fb;
+		// 	box-shadow: none;
+		// }
+
+		&:not(.on):hover {
+			background-color: #bfbfca;
+			box-shadow: none;
+		}
 	}
 }

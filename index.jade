@@ -8,6 +8,9 @@ block content
 				input#search-field(type="text")
 				label(for="search-field") Search channels
 			
-			
-		.streams.collection
+		.controls
+			each value in ["All", "Online", "Offline", "Available"]
+				button.btn(type="button", value=value.toLowerCase(), class=(value === "All" ? "on" : ""))= value
+				
+		.streams.collection.show-all
 			
