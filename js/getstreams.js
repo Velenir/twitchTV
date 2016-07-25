@@ -57,7 +57,7 @@ function getChannel(channelName) {
 	});
 }
 
-function getStreams(channels) {
+function getStreams(channels, beforeAddCback) {
 	for(let i = 0, len = channels.length; i < len; ++i) {
 		const channel = channels[i];
 		// console.log("*=========*");
@@ -89,6 +89,7 @@ function getStreams(channels) {
 		}).then(streamStats => {
 			// console.log("2 GOT STREAM STATS:", streamStats);
 			return constructStreamItem(streamStats).then($item => {
+				if(typeof beforeAddCback === "function") beforeAddCback();
 				if(streamStats.game === "Offline" || streamStats.game === "Unavailable") {
 					$item.addClass(streamStats.game.toLowerCase()).appendTo($streams);
 				} else $streams.prepend($item.addClass("online"));
