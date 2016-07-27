@@ -56,9 +56,16 @@ main {
 	transition: color .2s;
 	width: max-content;
 
-	> i {
-		font-size: inherit;
+	> button {
+		margin: 0 5px;
+		&:active {
+			transform: scale(0.95);
+		}
 	}
+}
+
+input[type="text"] + label {
+	left: 0 !important;
 }
 
 .streams {
@@ -91,6 +98,10 @@ main {
 	// padding: 40px 20px;
 	background-color: #b0bec5 !important;
 	color: white !important;
+
+	&:hover {
+		transform: translateX(-5px);
+	}
 
 	&.offline {
 		background-color: #7a848a !important;
@@ -183,5 +194,16 @@ main {
 			background-color: #bfbfca;
 			box-shadow: none;
 		}
+	}
+}
+
+.flare {
+	animation: 1s flare;
+}
+
+@keyframes flare {
+	50% {
+		background-color: #b69ba7;
+		box-shadow: inset 0 0 3px 2px black;
 	}
 }

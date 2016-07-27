@@ -5,10 +5,12 @@ block content
 		.upper-panel
 			.input-field.col.s6
 				.postfix
-					i.material-icons search
-					i.material-icons add
-				input#search-field(type="text")
-				label(for="search-field") Search channels
+					button#search.btn.btn-floating(type="button")
+						i.material-icons search
+					button#add.btn.btn-floating(type="button")
+						i.material-icons add
+				input#search-field(type="text", placeholder="Space or comma separated list")
+				label.active(for="search-field") Search channels
 				
 			
 		.controls
