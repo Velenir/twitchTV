@@ -58,11 +58,7 @@ function searchForStreams(clearStreams, channels) {
 
 			if(clearStreams) {
 				// before adding any streams
-				options.beforeFirstCallback = () => {
-					console.log("EMPTYING STREAMS");
-					$streams.empty();
-					$filterButtons[0].click();
-				};
+				options.beforeFirstCallback = emptyStreams;
 			} else if(channels_to_add.length === 1) {
 				options.beforeFirstCallback = (_, $firstStream) => {
 					// if new stream wouldn't be shown on current tab change to .show-all tab
@@ -82,6 +78,12 @@ function searchForStreams(clearStreams, channels) {
 			getStreams(channels_to_add, options);
 		}
 	};
+}
+
+function emptyStreams() {
+	console.log("EMPTYING STREAMS");
+	$streams.empty();
+	$filterButtons[0].click();
 }
 
 function scrollToEl($el, cb) {
@@ -146,10 +148,11 @@ $("#save-current").click(function(event) {
 $("#restore-current").click(function(event) {
 	if(localStorage["currentChannels"]) {
 		console.log("RESTORING SAVED CHANNELS");
-		getStreams(currentChannels = JSON.parse(localStorage["currentChannels"]), {beforeFirstCallback: () => {
-			console.log("EMPTYING STREAMS");
-			$streams.empty();
-			$filterButtons[0].click();
-		}});
+		getStreams(currentChannels = JSON.parse(localStorage["currentChannels"]), {beforeFirstCallback: emptyStreams});
 	}	else Materialize.toast('No previously saved channels', 4000);
+});
+
+$("#restore-default").click(function(event) {
+	console.log("RESTORING DEFAULT CHANNELS");
+	getStreams(currentChannels = defaultChannels, {beforeFirstCallback: emptyStreams});
 });
