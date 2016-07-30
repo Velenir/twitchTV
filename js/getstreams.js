@@ -134,6 +134,6 @@ function getStreams(channels, options) {
 
 
 $(document).ready(function() {
-	currentChannels = defaultChannels.map(ch => ch.toLowerCase());
-	getStreams(defaultChannels);
+	currentChannels = localStorage["currentChannels"] ? JSON.parse(localStorage["currentChannels"]) : defaultChannels.map(ch => ch.toLowerCase());
+	getStreams(currentChannels);
 });

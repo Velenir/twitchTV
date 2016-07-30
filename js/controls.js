@@ -136,3 +136,9 @@ $("#update").click(function(event) {
 	console.log("UPDATING");
 	if(currentChannels.length > 0) searchForStreams(false, currentChannels)();
 });
+
+$("#save-current").click(function(event) {
+	console.log("SAVING");
+	if(currentChannels.length > 0) localStorage["currentChannels"] = JSON.stringify(currentChannels);
+	else Materialize.toast('No channels to save', 4000);
+});
