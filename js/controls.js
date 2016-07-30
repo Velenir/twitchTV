@@ -35,7 +35,7 @@ function searchForStreams(clearStreams, channels) {
 	return function() {
 		if(channels || $searchField.val()) {
 			// split on space and/or comma and filter out empty strings and duplicates
-			let channels_to_add = channels || $searchField.val().trim().split(/,\s*|\s+/).filter((el,ind,ar)=> el!=="" && ind===ar.indexOf(el));
+			const channels_to_add = channels || $searchField.val().trim().split(/,\s*|\s+/).filter((el,ind,ar)=> el!=="" && ind===ar.indexOf(el));
 			// if nothing left
 			if(channels_to_add.length === 0) return;
 
@@ -155,7 +155,7 @@ $("#restore-current").click(function(event) {
 
 $("#restore-default").click(function(event) {
 	console.log("RESTORING DEFAULT CHANNELS");
-	getStreams(currentChannels = defaultChannels, {beforeFirstCallback: emptyStreams});
+	getStreams(currentChannels = defaultChannels.map(ch => ch.toLowerCase()), {beforeFirstCallback: emptyStreams});
 });
 
 
