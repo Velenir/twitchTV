@@ -104,7 +104,7 @@ function getStreams(channels, options) {
 				if(typeof beforeCallback === "function") {
 					$item_to_replace = beforeCallback(channel, $item);
 				}
-				console.log($item_to_replace, off);
+				// console.log($item_to_replace, off);
 				if($item_to_replace) {
 					if(!off && ($item_to_replace.hasClass('offline') || $item_to_replace.hasClass('unavailable'))) {
 						// if new is online, remove old, place new on top

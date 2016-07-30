@@ -75,7 +75,7 @@ function searchForStreams(clearStreams) {
 			if(!clearStreams && channels_to_add.length === 1) {
 				// once after adding first stream
 				options.afterFirstCallback = (_, $firstStream) => {
-					scrollTo($firstStream, () => {console.log("after scroll");$firstStream.addClass("flare");});
+					scrollToEl($firstStream, () => {console.log("after scroll");$firstStream.addClass("flare");});
 				};
 			}
 
@@ -84,8 +84,8 @@ function searchForStreams(clearStreams) {
 	};
 }
 
-function scrollTo($el, cb) {
-	const $body = $(document.body);
+function scrollToEl($el, cb) {
+	const $body = $("body, html");
 	const scrollTop = $body.scrollTop();
 	const windowHeight = $(window).height();
 	const streamTop = $el.offset().top;
@@ -101,3 +101,27 @@ function scrollTo($el, cb) {
 	// $(document.body).scrollTop($el.offset().top + $el.outerHeight() - $(window).height());
 	$body.animate({scrollTop: streamBottom - windowHeight + 5}, 200, cb);
 }
+
+
+function debouncedFunction(cb, delay=200) {
+	let timeoutId;
+	return function (...args) {
+		clearTimeout(timeoutId);
+		console.log("timeout cleared");
+		timeoutId = setTimeout(cb.bind(this, ...args), delay);
+	};
+}
+
+const $toTop = $(".toTop").on('click', () => {
+	$("body, html").animate({scrollTop: 0}, 200);
+});
+$(document).on('scroll', debouncedFunction(function (e) {
+	// console.log(e);
+	// console.log("scrollTop", this.body.scrollTop);
+	$toTop.toggleClass("opaque", $("body, html").toArray().some((el) => el.scrollTop > 100));
+}, 200));
+// $(document).on('scroll', function (e) {
+// 	console.log("DIRECT SCROLL");
+// 	console.log(e);
+// 	console.log("scrollTop", this.scrollTop);
+// });
