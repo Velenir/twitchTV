@@ -142,3 +142,14 @@ $("#save-current").click(function(event) {
 	if(currentChannels.length > 0) localStorage["currentChannels"] = JSON.stringify(currentChannels);
 	else Materialize.toast('No channels to save', 4000);
 });
+
+$("#restore-current").click(function(event) {
+	if(localStorage["currentChannels"]) {
+		console.log("RESTORING SAVED CHANNELS");
+		getStreams(currentChannels = JSON.parse(localStorage["currentChannels"]), {beforeFirstCallback: () => {
+			console.log("EMPTYING STREAMS");
+			$streams.empty();
+			$filterButtons[0].click();
+		}});
+	}	else Materialize.toast('No previously saved channels', 4000);
+});
