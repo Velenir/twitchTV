@@ -125,3 +125,9 @@ $(document).on('scroll', debouncedFunction(function (e) {
 // 	console.log(e);
 // 	console.log("scrollTop", this.scrollTop);
 // });
+
+
+$(".streams").on('click', '.corner', function () {
+	const $removedStream = $(this).closest('.stream-item').remove();
+	currentChannels.splice(currentChannels.indexOf($removedStream.data('channel')), 1);
+});

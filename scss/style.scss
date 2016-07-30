@@ -98,6 +98,7 @@ input[type="text"] + label {
 	// padding: 40px 20px;
 	background-color: #b0bec5;
 	color: white !important;
+	position: relative;
 
 	&:hover {
 		transform: translateX(-5px);
@@ -156,6 +157,18 @@ input[type="text"] + label {
 
 	.playing {
 		font-size: 2em;
+	}
+
+	> .corner {
+		position: absolute;
+		top: 0.5rem;
+		right: 0.5rem;
+		color: #739aad;
+
+		&:hover {
+			transform: scale(1.2);
+			color: white;
+		}
 	}
 }
 

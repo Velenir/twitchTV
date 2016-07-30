@@ -31,7 +31,8 @@ function constructStreamItem({display_name, game, logo, url, dataChannel}) {
 		$thumb.addClass("hide-on-small-only").append("<div class='blank'></div>");
 	}
 
-	$item.append(`<p class="playing col s12 m8 l9">${game}</p>`);
+	$item.append(`<p class="playing col s12 m8 l9">${game}</p>`)
+	.append('<a href="#!" class="corner"><i class="material-icons">close</i></a>');
 
 	// ultimately resolves with a fully loaded $item
 	return Promise.resolve(promise).then(() => $item);
