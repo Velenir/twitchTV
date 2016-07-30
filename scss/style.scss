@@ -75,6 +75,7 @@ input[type="text"] + label {
 	background-color: #d6d6fb;
 	border-top: none;
 
+	// unset materialize values
 	&.show-all > .stream-item {
 		display: flex !important;
 	}
@@ -105,6 +106,7 @@ input[type="text"] + label {
 		background-color: #b0bec5 !important;
 	}
 
+	// unset materialize values
 	&.offline, &.offline:hover {
 		background-color: #7a848a !important;
 	}
@@ -176,6 +178,7 @@ input[type="text"] + label {
 	width: 100%;
 	// margin-bottom: -1px;
 	border-bottom: 2px solid white;
+	position: relative;
 
 	> button {
 		width: 25%;
@@ -185,11 +188,11 @@ input[type="text"] + label {
 		border: 2px solid white;
 		border-width: 0 0.5px 2px;
 
-		&:first-child {
+		&:first-of-type {
 			border-left: none;
 		}
 
-		&:last-child {
+		&:last-of-type {
 			border-right: none;
 		}
 
@@ -207,6 +210,22 @@ input[type="text"] + label {
 		&:not(.on):hover {
 			background-color: #bfbfca;
 			box-shadow: none;
+		}
+	}
+
+	> .settings-btn {
+		top: 0;
+		left: 100%;
+		// unset materialize values
+		right: unset;
+		bottom: unset;
+		position: absolute;
+		padding: 0;
+		margin-left: 5px;
+
+		> ul {
+			bottom: unset;
+			margin-top: 10px;
 		}
 	}
 }
@@ -228,9 +247,6 @@ input[type="text"] + label {
 	bottom: 1rem;
 	opacity: 0;
 	transition: 0.2s opacity;
-	i {
-		font-size: 3rem;
-	}
 }
 
 .opaque {

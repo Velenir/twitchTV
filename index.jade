@@ -17,10 +17,31 @@ block content
 			each value in ["All", "Online", "Offline", "Available"]
 				button.btn(type="button", value=value.toLowerCase(), class=(value === "All" ? "on" : ""))= value
 				
+			.fixed-action-btn.click-to-toggle.settings-btn
+				a.btn-floating.btn
+					i.material-icons menu		
+				ul
+					li
+						a#update.btn-floating.blue(title="update channels")
+							i.material-icons sync
+					li
+						a#save-current.btn-floating.red.darken-1(title="save current channels")
+							i.material-icons save
+					li
+						a#restore-current.btn-floating.red.lighten-1(title="restore saved channels")
+							i.material-icons unarchive
+					li
+						a#restore-default.btn-floating.red.lighten-2(title="restore default channels")
+							i.material-icons restore
+					li
+						a#about.btn-floating.green(title="about")
+							i.material-icons help
+
+				
 		.streams.collection.show-all
 			
 		.toTop
 			button.btn-floating.blue.lighten-2(type="button")
-				i.material-icons ꜛ
+				i.material-icons vertical_align_top
 
 			
