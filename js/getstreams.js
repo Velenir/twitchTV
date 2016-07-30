@@ -1,5 +1,3 @@
-const defaultChannels = ["freecodecamp", "storbeck", "terakilobyte", "habathcx","RobotCaleb","thomasballinger","noobs2ninjas","beohoff","brunofin","comster404","test_channel","cretetion","sheevergaming","TR7K","OgamingSC2","ESL_SC2"];
-
 const $streams = $(".streams");
 
 function constructStreamItem({display_name, game, logo, url, dataChannel}) {
@@ -131,9 +129,3 @@ function getStreams(channels, options) {
 		// console.log("en CHANNEL", channel);
 	}
 }
-
-
-$(document).ready(function() {
-	currentChannels = localStorage["currentChannels"] ? JSON.parse(localStorage["currentChannels"]) : defaultChannels.map(ch => ch.toLowerCase());
-	getStreams(currentChannels);
-});

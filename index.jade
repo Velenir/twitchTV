@@ -34,7 +34,7 @@ block content
 						a#restore-default.btn-floating.red.lighten-2(title="restore default channels")
 							i.material-icons restore
 					li
-						a#about.btn-floating.green(title="about")
+						a#about.btn-floating.green.modal-trigger(title="about", href="#modal1")
 							i.material-icons help
 
 				
@@ -45,3 +45,9 @@ block content
 				i.material-icons vertical_align_top
 
 			
+	#modal1.modal
+		.modal-content
+			h4 Modal Header
+			p A bunch of text
+		.modal-footer
+			a.modal-action.modal-close.btn-flat(href='#!') Close

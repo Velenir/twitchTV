@@ -3,6 +3,7 @@ const $searchButton = $("#search");
 const $addButton = $("#add");
 const $searchField = $("#search-field");
 
+const defaultChannels = ["freecodecamp", "storbeck", "terakilobyte", "habathcx","RobotCaleb","thomasballinger","noobs2ninjas","beohoff","brunofin","comster404","test_channel","cretetion","sheevergaming","TR7K","OgamingSC2","ESL_SC2"];
 let currentChannels = [];
 
 $filterButtons.on('click', function(e) {
@@ -155,4 +156,11 @@ $("#restore-current").click(function(event) {
 $("#restore-default").click(function(event) {
 	console.log("RESTORING DEFAULT CHANNELS");
 	getStreams(currentChannels = defaultChannels, {beforeFirstCallback: emptyStreams});
+});
+
+
+$(document).ready(function() {
+	currentChannels = localStorage["currentChannels"] ? JSON.parse(localStorage["currentChannels"]) : defaultChannels.map(ch => ch.toLowerCase());
+	getStreams(currentChannels);
+	$('.modal-trigger').leanModal();
 });
