@@ -24,7 +24,7 @@ $searchButton.on('click', searchForStreams(true));
 
 $addButton.on('click', searchForStreams());
 
-function searchForStreams(clearStreams) {
+function searchForStreams(clearStreams, channels) {
 	function willBeDisplayed($stream) {
 		if($streams.hasClass("show-all")) return true;
 		else if($streams.hasClass("show-online")) return $stream.hasClass('online');
@@ -32,9 +32,9 @@ function searchForStreams(clearStreams) {
 		else if($streams.hasClass("show-available")) return $stream.hasClass('online') || $stream.hasClass('offline');
 	}
 	return function() {
-		if($searchField.val()) {
+		if(channels || $searchField.val()) {
 			// split on space and/or comma and filter out empty strings and duplicates
-			let channels_to_add = $searchField.val().trim().split(/,\s*|\s+/).filter((el,ind,ar)=> el!=="" && ind===ar.indexOf(el));
+			let channels_to_add = channels || $searchField.val().trim().split(/,\s*|\s+/).filter((el,ind,ar)=> el!=="" && ind===ar.indexOf(el));
 			// if nothing left
 			if(channels_to_add.length === 0) return;
 
@@ -130,4 +130,9 @@ $(document).on('scroll', debouncedFunction(function (e) {
 $(".streams").on('click', '.corner', function () {
 	const $removedStream = $(this).closest('.stream-item').remove();
 	currentChannels.splice(currentChannels.indexOf($removedStream.data('channel')), 1);
+});
+
+$("#update").click(function(event) {
+	console.log("UPDATING");
+	if(currentChannels.length > 0) searchForStreams(false, currentChannels)();
 });
