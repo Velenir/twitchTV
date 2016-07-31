@@ -1,6 +1,6 @@
 const $streams = $(".streams");
 
-function constructStreamItem({display_name, game, logo, url, dataChannel}) {
+function constructStreamItem({display_name, game, logo, url, dataChannel, channelStatus}) {
 	// console.log("CONSTRUCTING ITEM FROM", {display_name, game, logo, url});
 	const $item = $(`<a class='collection-item stream-item row center-align' data-channel='${dataChannel.toLowerCase()}'>
 										<p class='channel-name col s12 m2 l2'>${display_name}</p>
@@ -29,8 +29,12 @@ function constructStreamItem({display_name, game, logo, url, dataChannel}) {
 		$thumb.addClass("hide-on-small-only").append("<div class='blank'></div>");
 	}
 
-	$item.append(`<p class="playing col s12 m8 l9">${game}</p>`)
-	.append('<a href="#!" class="corner"><i class="material-icons">close</i></a>');
+	const $playing = $(`<p class="playing col s12 m8 l9">${game}</p>`);
+	if(channelStatus) {
+		$playing.append(`<small class="status hide-on-small-only"> ${channelStatus}</small`);
+	}
+
+	$item.append($playing).append('<a href="#!" class="corner"><i class="material-icons">close</i></a>');
 
 	// ultimately resolves with a fully loaded $item
 	return Promise.resolve(promise).then(() => $item);
@@ -65,9 +69,9 @@ function getStreams(channels, options) {
 		getStream(channel).then(data => {
 			// console.log("1. GOT STREAM:", data.stream);
 			if(data.stream) {
-				const {game, channel: {display_name, logo, url}} = data.stream;
+				const {game, channel: {display_name, logo, url, status}} = data.stream;
 				// return constructStreamItem(display_name, game, logo, url);
-				return {game, display_name, logo, url, dataChannel: channel};
+				return {game, display_name, logo, url, dataChannel: channel, channelStatus: status};
 			} else {
 				return getChannel(channel).then(data => {
 					// console.log("1.5 GOT CHANNEL:", data);

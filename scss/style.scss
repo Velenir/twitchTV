@@ -159,6 +159,13 @@ input[type="text"] + label {
 
 	.playing {
 		font-size: 2em;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+
+		> .status {
+			vertical-align: bottom;
+		}
 	}
 
 	> .corner {
