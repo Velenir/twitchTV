@@ -1,7 +1,7 @@
 const $streams = $(".streams");
 
 function constructStreamItem({display_name, game, logo, url, dataChannel, channelStatus}) {
-	// console.log("CONSTRUCTING ITEM FROM", {display_name, game, logo, url});
+	// console.log("CONSTRUCTING ITEM FROM", {display_name, game, logo, url, dataChannel, channelStatus});
 	const $item = $(`<a class='collection-item stream-item row center-align' data-channel='${dataChannel.toLowerCase()}'>
 										<p class='channel-name col s12 m2 l2'>${display_name}</p>
 									</a>`);
@@ -70,13 +70,11 @@ function getStreams(channels, options) {
 			// console.log("1. GOT STREAM:", data.stream);
 			if(data.stream) {
 				const {game, channel: {display_name, logo, url, status}} = data.stream;
-				// return constructStreamItem(display_name, game, logo, url);
 				return {game, display_name, logo, url, dataChannel: channel, channelStatus: status};
 			} else {
 				return getChannel(channel).then(data => {
 					// console.log("1.5 GOT CHANNEL:", data);
 					const {display_name, logo, url} = data;
-					// return constructStreamItem(display_name, "Offline", logo, url).then($item => $item.addClass("offline"));
 					return {game: "Offline", display_name, logo, url, dataChannel: channel};
 				});
 			}
@@ -84,7 +82,6 @@ function getStreams(channels, options) {
 			// console.log("2X Failure", jqXHR, "status:", status, "error:", err);
 			if(jqXHR.status === 422) {
 				// console.log("Channel Unavailable");
-				// constructStreamItem(channel, "Unavailable").then($item => $streams.prepend($item.addClass("unavailable")));
 				return {game: "Unavailable", display_name: channel, dataChannel: channel};
 			} else {
 				// console.log("Error. jqXHR:",jqXHR);
@@ -99,7 +96,6 @@ function getStreams(channels, options) {
 				const off = streamStats.game === "Offline" || streamStats.game === "Unavailable";
 				$item.addClass(off ? streamStats.game.toLowerCase() : "online");
 				// console.log("2.5 FINAL ITEM:", $item[0]);
-				// console.log("CHANNEL", channel);
 				if(typeof beforeFirstCallback === "function") {
 					beforeFirstCallback(channel, $item);
 					beforeFirstCallback = null;
@@ -109,7 +105,6 @@ function getStreams(channels, options) {
 				if(typeof beforeCallback === "function") {
 					$item_to_replace = beforeCallback(channel, $item);
 				}
-				// console.log($item_to_replace, off);
 				if($item_to_replace) {
 					if(!off && ($item_to_replace.hasClass('offline') || $item_to_replace.hasClass('unavailable'))) {
 						// if new is online, remove old, place new on top
@@ -135,7 +130,5 @@ function getStreams(channels, options) {
 				streamNotFound(channel);
 			} else console.log("Error", err);
 		});
-
-		// console.log("en CHANNEL", channel);
 	}
 }

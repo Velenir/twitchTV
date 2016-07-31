@@ -6,9 +6,7 @@ const $searchField = $("#search-field");
 const defaultChannels = ["freecodecamp", "storbeck", "terakilobyte", "habathcx","RobotCaleb","thomasballinger","noobs2ninjas","beohoff","brunofin","comster404","test_channel","cretetion","sheevergaming","TR7K","OgamingSC2","ESL_SC2"];
 let currentChannels = [];
 
-$filterButtons.on('click', function(e) {
-	// console.log(e.target);
-	// console.log(this);
+$filterButtons.on('click', function() {
 	$filterButtons.removeClass("on");
 	$(this).addClass("on");
 
@@ -17,7 +15,6 @@ $filterButtons.on('click', function(e) {
 });
 
 $("#search-field").on('keydown', function(e) {
-	// console.log(e.type, "char:", e.char, "key:", e.key, "charCode:", e.charCode, "keyCode:", e.keyCode, "which:", e.which);
 	if(e.key === "Enter" || e.keyCode === 13) $searchButton.click();
 });
 
@@ -45,9 +42,8 @@ function searchForStreams(clearStreams, channels) {
 				// before adding each stream
 				beforeCallback : (channel) => {
 					channel = channel.toLowerCase();
-					console.log("adding channel", channel);
+					// console.log("adding channel", channel);
 					if(currentChannels.includes(channel)) {
-						// console.log("replacing");
 						return $streams.children(`[data-channel=${channel}]`);
 					} else currentChannels.push(channel);
 				},
@@ -74,7 +70,7 @@ function searchForStreams(clearStreams, channels) {
 			if(!clearStreams && channels_to_add.length === 1) {
 				// once after adding first stream
 				options.afterFirstCallback = (_, $firstStream) => {
-					scrollToEl($firstStream, () => {console.log("after scroll");$firstStream.addClass("flare");});
+					scrollToEl($firstStream, () => $firstStream.addClass("flare"));
 				};
 			}
 
@@ -84,7 +80,7 @@ function searchForStreams(clearStreams, channels) {
 }
 
 function emptyStreams() {
-	console.log("EMPTYING STREAMS");
+	// console.log("EMPTYING STREAMS");
 	$streams.empty();
 	$filterButtons[0].click();
 }
@@ -94,7 +90,7 @@ function streamNotFound(ch) {
 }
 
 function scrollToEl($el, cb) {
-	const $body = $("body, html");
+	const $body = $("body, html");	// works in both Firefox and Chrome
 	const scrollTop = $body.scrollTop();
 	const windowHeight = $(window).height();
 	const streamTop = $el.offset().top;
@@ -106,8 +102,7 @@ function scrollToEl($el, cb) {
 		return;
 	}
 
-	console.log("SCROLLING to", streamBottom - windowHeight + 5);
-	// $(document.body).scrollTop($el.offset().top + $el.outerHeight() - $(window).height());
+	// console.log("SCROLLING to", streamBottom - windowHeight + 5);
 	$body.animate({scrollTop: streamBottom - windowHeight + 5}, 200, cb);
 }
 
@@ -116,7 +111,6 @@ function debouncedFunction(cb, delay=200) {
 	let timeoutId;
 	return function (...args) {
 		clearTimeout(timeoutId);
-		console.log("timeout cleared");
 		timeoutId = setTimeout(cb.bind(this, ...args), delay);
 	};
 }
@@ -125,15 +119,9 @@ const $toTop = $(".toTop").on('click', () => {
 	$("body, html").animate({scrollTop: 0}, 200);
 });
 $(document).on('scroll', debouncedFunction(function (e) {
-	// console.log(e);
-	// console.log("scrollTop", this.body.scrollTop);
+	// works in both Firefox and Chrome
 	$toTop.toggleClass("opaque", $("body, html").toArray().some((el) => el.scrollTop > 100));
 }, 200));
-// $(document).on('scroll', function (e) {
-// 	console.log("DIRECT SCROLL");
-// 	console.log(e);
-// 	console.log("scrollTop", this.scrollTop);
-// });
 
 
 $(".streams").on('click', '.corner', function () {
@@ -142,25 +130,25 @@ $(".streams").on('click', '.corner', function () {
 });
 
 $("#update").click(function(event) {
-	console.log("UPDATING");
+	// console.log("UPDATING");
 	if(currentChannels.length > 0) searchForStreams(false, currentChannels)();
 });
 
 $("#save-current").click(function(event) {
-	console.log("SAVING");
+	// console.log("SAVING");
 	if(currentChannels.length > 0) localStorage["currentChannels"] = JSON.stringify(currentChannels);
 	else Materialize.toast('No channels to save', 4000);
 });
 
 $("#load-current").click(function(event) {
 	if(localStorage["currentChannels"]) {
-		console.log("RESTORING SAVED CHANNELS");
+		// console.log("RESTORING SAVED CHANNELS");
 		getStreams(currentChannels = JSON.parse(localStorage["currentChannels"]), {beforeFirstCallback: emptyStreams, streamNotFound});
 	}	else Materialize.toast('No previously saved channels', 4000);
 });
 
 $("#restore-default").click(function(event) {
-	console.log("RESTORING DEFAULT CHANNELS");
+	// console.log("RESTORING DEFAULT CHANNELS");
 	getStreams(currentChannels = defaultChannels.map(ch => ch.toLowerCase()), {beforeFirstCallback: emptyStreams, streamNotFound});
 });
 
