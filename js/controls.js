@@ -54,7 +54,9 @@ function searchForStreams(clearStreams, channels) {
 				// after adding each streams
 				afterCallback: (_, $stream) => {
 					if(channels_to_add.length > 1) $stream.addClass("flare");
-				}
+				},
+				// on HTTP status 404
+				streamNotFound
 			};
 
 			if(clearStreams) {
@@ -85,6 +87,10 @@ function emptyStreams() {
 	console.log("EMPTYING STREAMS");
 	$streams.empty();
 	$filterButtons[0].click();
+}
+
+function streamNotFound(ch) {
+	Materialize.toast(`Channel ${ch} not found`, 4000);
 }
 
 function scrollToEl($el, cb) {

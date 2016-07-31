@@ -57,7 +57,7 @@ function getChannel(channelName) {
 }
 
 function getStreams(channels, options) {
-	let {beforeCallback, beforeFirstCallback, afterCallback, afterFirstCallback} = options || {};
+	let {beforeCallback, beforeFirstCallback, afterCallback, afterFirstCallback, streamNotFound} = options || {};
 	for(let i = 0, len = channels.length; i < len; ++i) {
 		const channel = channels[i];
 		// console.log("*=========*");
@@ -84,7 +84,9 @@ function getStreams(channels, options) {
 				return {game: "Unavailable", display_name: channel, dataChannel: channel};
 			} else {
 				// console.log("Error. jqXHR:",jqXHR);
-				throw new Error(err);
+				err = new Error(err);
+				err.status = jqXHR.status;
+				throw err;
 			}
 		}).then(streamStats => {
 			// console.log("2 GOT STREAM STATS:", streamStats);
@@ -124,7 +126,11 @@ function getStreams(channels, options) {
 					afterCallback(channel, $item);
 				}
 			});
-		}).catch(err => console.log("Error:", err));
+		}).catch(err => {
+			if(err.status === 404) {
+				Materialize.toast(`Channel ${channel} not found`, 4000);
+			} else console.log("Error");
+		});
 
 		// console.log("en CHANNEL", channel);
 	}
