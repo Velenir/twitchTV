@@ -155,18 +155,18 @@ $("#save-current").click(function(event) {
 $("#load-current").click(function(event) {
 	if(localStorage["currentChannels"]) {
 		console.log("RESTORING SAVED CHANNELS");
-		getStreams(currentChannels = JSON.parse(localStorage["currentChannels"]), {beforeFirstCallback: emptyStreams});
+		getStreams(currentChannels = JSON.parse(localStorage["currentChannels"]), {beforeFirstCallback: emptyStreams, streamNotFound});
 	}	else Materialize.toast('No previously saved channels', 4000);
 });
 
 $("#restore-default").click(function(event) {
 	console.log("RESTORING DEFAULT CHANNELS");
-	getStreams(currentChannels = defaultChannels.map(ch => ch.toLowerCase()), {beforeFirstCallback: emptyStreams});
+	getStreams(currentChannels = defaultChannels.map(ch => ch.toLowerCase()), {beforeFirstCallback: emptyStreams, streamNotFound});
 });
 
 
 $(document).ready(function() {
 	currentChannels = localStorage["currentChannels"] ? JSON.parse(localStorage["currentChannels"]) : defaultChannels.map(ch => ch.toLowerCase());
-	getStreams(currentChannels);
+	getStreams(currentChannels, {streamNotFound});
 	$('.modal-trigger').leanModal();
 });

@@ -127,9 +127,9 @@ function getStreams(channels, options) {
 				}
 			});
 		}).catch(err => {
-			if(err.status === 404) {
-				Materialize.toast(`Channel ${channel} not found`, 4000);
-			} else console.log("Error");
+			if(err.status === 404 && typeof streamNotFound === "function") {
+				streamNotFound(channel);
+			} else console.log("Error", err);
 		});
 
 		// console.log("en CHANNEL", channel);
