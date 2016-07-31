@@ -28,7 +28,7 @@ block content
 						a#save-current.btn-floating.red.darken-1(title="save current channels")
 							i.material-icons save
 					li
-						a#restore-current.btn-floating.red.lighten-1(title="restore saved channels")
+						a#load-current.btn-floating.red.lighten-1(title="load saved channels")
 							i.material-icons unarchive
 					li
 						a#restore-default.btn-floating.red.lighten-2(title="restore default channels")
@@ -47,7 +47,16 @@ block content
 			
 	#modal1.modal
 		.modal-content
-			h4 Modal Header
-			p A bunch of text
+			h4 TwitchTV
+			p Uses #[strong TwitchTV] public APi to search for streams. Search can be performed for one channel or for multiple channels separated with spaces or commas.
+			p Search is executed by pressing #[code Enter] when focus is on the input field or by pressing the #[strong search button]. That will clear current channels displayed. To instead add a channel press #[strong add button].
+			p Channel pannel includes status of the stream: #[strong Game] being streamed, #[strong Offline] or #[strong Unavailable] for deleted channels.
+			p The following functionality is accessible through the #[strong Menu]:
+			ul
+				li Update status of the currently displayed channels.
+				li Save currently displayed channels to localStorage
+				li Load saved channels from localStorage
+				li Restore default channels
+				li Open this modal
 		.modal-footer
 			a.modal-action.modal-close.btn-flat(href='#!') Close

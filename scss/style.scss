@@ -252,3 +252,12 @@ input[type="text"] + label {
 .opaque {
 	opacity: 1;
 }
+
+.modal ul {
+	padding-left: 20px;
+	list-style-type: unset;
+
+	> li {
+		list-style-type: unset;
+	}
+}

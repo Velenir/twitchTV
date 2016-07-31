@@ -152,7 +152,7 @@ $("#save-current").click(function(event) {
 	else Materialize.toast('No channels to save', 4000);
 });
 
-$("#restore-current").click(function(event) {
+$("#load-current").click(function(event) {
 	if(localStorage["currentChannels"]) {
 		console.log("RESTORING SAVED CHANNELS");
 		getStreams(currentChannels = JSON.parse(localStorage["currentChannels"]), {beforeFirstCallback: emptyStreams});
