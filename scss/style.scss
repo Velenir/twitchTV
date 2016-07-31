@@ -11,14 +11,18 @@ button {
 	}
 }
 
-// $body-color: #cedfef;
 $thumb-size: 80px;
 $item-margin: 20px;
 $streams-padding: 20px;
-
-// div, p, span, main {
-// 	outline: 1px dotted black;
-// }
+$streams-background-color: #d6d6fb;
+$stream-item-color: #b0bec5;
+$stream-item-offline-color: #7a848a;
+$stream-item-unavailable-color: #414c52;
+$controls-button-hover-color: #bfbfca;
+$flare-color: #b69ba7;
+$blank-thumb-background: wheat;
+$blank-thumb-color: #84919c;
+$stream-corner-color: #739aad;
 
 html {
 	font-size: 16px;
@@ -27,19 +31,16 @@ html {
 body {
 	min-height: 100vh;
 	margin: 0;
-	// background-color: $body-color;
 	display: flex;
 	flex-direction: column;
 }
 
 main {
-	min-height: inherit;
 	min-width: 200px;
 	width: 90%;
 	margin: 20px auto;
 	display: flex;
 	flex-direction: column;
-	// justify-content: center;
 	align-items: center;
 }
 
@@ -72,7 +73,7 @@ input[type="text"] + label {
 	width: 100%;
 	padding: $streams-padding;
 	margin-top: 0;
-	background-color: #d6d6fb;
+	background-color: $streams-background-color;
 	border-top: none;
 
 	// unset materialize values
@@ -96,37 +97,25 @@ input[type="text"] + label {
 	display: none !important;
 	align-items: center;
 	flex-wrap: wrap;
-	// padding: 40px 20px;
-	background-color: #b0bec5;
+	background-color: $stream-item-color;
 	color: white !important;
 	position: relative;
 
 	&:hover {
 		transform: translateX(-5px);
-		background-color: #b0bec5 !important;
+		background-color: $stream-item-color !important;
 	}
 
 	// unset materialize values
 	&.offline, &.offline:hover {
-		background-color: #7a848a !important;
+		background-color: $stream-item-offline-color !important;
 	}
 
 	&.unavailable, &.unavailable:hover {
-		background-color: #414c52 !important;
-	}
-
-	> * {
-		// margin: $item-margin;
-		// padding: 40px 0;
-
-	}
-
-	> :last-child {
-		// margin-left: auto;
+		background-color: $stream-item-unavailable-color !important;
 	}
 
 	.thumbnail {
-		// min-width: $thumb-size;
 		height: $thumb-size;
 		padding: 0;
 
@@ -139,22 +128,16 @@ input[type="text"] + label {
 
 		> .blank {
 			display: inline-block;
-			background-color: wheat;
+			background-color: $blank-thumb-background;
 			position: relative;
 
 			&::after {
 				content: "?";
 				font-size: 4em;
 				line-height: $thumb-size;
-				color: #84919c;
+				color: $blank-thumb-color;
 			}
 		}
-	}
-
-	.channel-name {
-		// &:first-child {
-		// 	margin-left: $thumb-size + $item-margin * 3;
-		// }
 	}
 
 	.playing {
@@ -172,18 +155,17 @@ input[type="text"] + label {
 		position: absolute;
 		top: 0.5rem;
 		right: 0.5rem;
-		color: #739aad;
+		color: $stream-corner-color;
 
 		&:hover {
 			transform: scale(1.2);
-			color: white;
+			color: inherit;
 		}
 	}
 }
 
 .controls {
 	width: 100%;
-	// margin-bottom: -1px;
 	border-bottom: 2px solid white;
 	position: relative;
 
@@ -205,17 +187,12 @@ input[type="text"] + label {
 
 		&.on {
 			box-shadow: none;
-			background-color: #d6d6fb;
+			background-color: $streams-background-color;
 			border-bottom-color: transparent;
 		}
 
-		// &.off {
-		// 	background-color: #d6d6fb;
-		// 	box-shadow: none;
-		// }
-
 		&:not(.on):hover {
-			background-color: #bfbfca;
+			background-color: $controls-button-hover-color;
 			box-shadow: none;
 		}
 	}
@@ -243,7 +220,7 @@ input[type="text"] + label {
 
 @keyframes flare {
 	50% {
-		background-color: #b69ba7;
+		background-color: $flare-color;
 		box-shadow: inset 0 0 3px 2px black;
 	}
 }
